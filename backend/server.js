@@ -21,7 +21,11 @@ connectDB();
 
 const app = express();
 
-app.use(cors());
+const corsOptions = {
+  origin: "https://ecommerce-with-admin-panel-front-end.vercel.app",
+  methods: "GET,POST,PUT,DELETE",
+};
+app.use(cors(corsOptions));
 app.use(compression());
 app.use(cookieParser());
 app.use(express.json());
