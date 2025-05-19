@@ -3,14 +3,14 @@
   "name": "E-commerce-website",
   "builds": [
     {
-      "src": "./server.js",
+      "src": "./backend/server.js",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "server.js"
+      "dest": "/backend/server.js"
     }
   ]
 }
