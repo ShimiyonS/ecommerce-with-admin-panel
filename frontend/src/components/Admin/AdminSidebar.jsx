@@ -26,7 +26,7 @@ const Sidebar = () => {
       await logoutApiCall().unwrap();
       dispatch(logout());
 
-      navigate('/admin/login');
+      navigate('/login');
       toast.success('Logout successful');
     } catch (error) {
       toast.error(error?.data?.message || error.error);

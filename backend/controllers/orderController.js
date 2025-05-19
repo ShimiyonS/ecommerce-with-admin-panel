@@ -15,15 +15,15 @@ const addOrderItems = async (req, res, next) => {
       shippingPrice,
       totalPrice
     } = req.body;
-    console.log(
-      cartItems,
-      shippingAddress,
-      paymentMethod,
-      itemsPrice,
-      taxPrice,
-      shippingPrice,
-      totalPrice
-    );
+    // console.log(
+    //   cartItems,
+    //   shippingAddress,
+    //   paymentMethod,
+    //   itemsPrice,
+    //   taxPrice,
+    //   shippingPrice,
+    //   totalPrice
+    // );
     if (!cartItems || cartItems.length === 0) {
       res.statusCode = 400;
       throw new Error('No order items.');
