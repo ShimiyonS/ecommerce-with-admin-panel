@@ -26,6 +26,7 @@ const HomePage = () => {
     search
   });
 
+  console.log(data)
   useEffect(() => {
     if (data) {
       setLimit(4);
