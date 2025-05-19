@@ -60,6 +60,7 @@ const ProductFormPage = () => {
   const uploadFileHandler = async e => {
     const formData = new FormData();
     formData.append('image', e.target.files[0]);
+    
     try {
       const res = await uploadProductImage(formData).unwrap();
       setImage(res.imageUrl);
