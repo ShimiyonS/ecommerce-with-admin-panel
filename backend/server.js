@@ -22,7 +22,7 @@ connectDB();
 const app = express();
 
 const allowedOrigins = [
-  "http://localhost:3001",
+  "http://localhost:3000",
   "https://ecommerce-with-admin-panel-front-end.vercel.app",
 ];
 

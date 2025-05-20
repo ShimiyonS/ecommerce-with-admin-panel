@@ -2,7 +2,6 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://ecommerce-with-admin-panel-ten.vercel.app",
   "dependencies": {
     "@paypal/react-paypal-js": "^8.8.2",
     "@reduxjs/toolkit": "^2.0.1",

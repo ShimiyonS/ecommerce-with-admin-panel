@@ -1,28 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { Button, Form } from 'react-bootstrap';
-import { toast } from 'react-toastify';
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { Button, Form } from "react-bootstrap";
+import { toast } from "react-toastify";
 import {
   useCreateProductMutation,
   useGetProductDetailsQuery,
   useUpdateProductMutation,
-  useUploadProductImageMutation
-} from '../../slices/productsApiSlice';
-import FormContainer from '../../components/FormContainer';
-import Loader from '../../components/Loader';
-import Message from '../../components/Message';
-import Meta from '../../components/Meta';
+  useUploadProductImageMutation,
+} from "../../slices/productsApiSlice";
+import FormContainer from "../../components/FormContainer";
+import Loader from "../../components/Loader";
+import Message from "../../components/Message";
+import Meta from "../../components/Meta";
 
 const ProductFormPage = () => {
   const { id: productId } = useParams();
 
   const isUpdateMode = !!productId;
 
-  const [name, setName] = useState('');
-  const [image, setImage] = useState('');
-  const [description, setDescription] = useState('');
-  const [brand, setBrand] = useState('');
-  const [category, setCategory] = useState('');
+  const [name, setName] = useState("");
+  const [image, setImage] = useState("");
+  const [description, setDescription] = useState("");
+  const [brand, setBrand] = useState("");
+  const [category, setCategory] = useState("");
   const [price, setPrice] = useState(0);
   const [countInStock, setCountInStock] = useState(0);
 
@@ -31,7 +31,7 @@ const ProductFormPage = () => {
   const {
     data: product,
     isLoading,
-    error
+    error,
   } = isUpdateMode
     ? getProductQueryResult
     : { data: null, isLoading: false, error: null };
@@ -57,20 +57,21 @@ const ProductFormPage = () => {
     }
   }, [isUpdateMode, product]);
 
-  const uploadFileHandler = async e => {
+  const uploadFileHandler = async (e) => {
     const formData = new FormData();
-    formData.append('image', e.target.files[0]);
-    
+    formData.append("image", e.target.files[0]);
     try {
       const res = await uploadProductImage(formData).unwrap();
       setImage(res.imageUrl);
       toast.success(res.message);
+      console.log(res);
     } catch (error) {
+      console.log(error);
       toast.error(error?.data?.message || error.error);
     }
   };
 
-  const submitHandler = async e => {
+  const submitHandler = async (e) => {
     e.preventDefault();
     try {
       const productData = {
@@ -80,12 +81,13 @@ const ProductFormPage = () => {
         brand,
         category,
         price,
-        countInStock
+        countInStock,
       };
+      console.log(isUpdateMode);
       if (isUpdateMode) {
         const { data } = await updateProduct({
           productId,
-          ...productData
+          ...productData,
         });
         toast.success(data.message);
       } else {
@@ -93,7 +95,7 @@ const ProductFormPage = () => {
 
         toast.success(data.message);
       }
-      navigate('/admin/product-list');
+      navigate("/admin/product-list");
     } catch (error) {
       toast.error(error?.data?.message || error.error);
     }
@@ -101,8 +103,8 @@ const ProductFormPage = () => {
 
   return (
     <>
-    <Meta title={'Product Form'} />
-      <Link to='/admin/product-list' className='btn btn-light my-3'>
+      <Meta title={"Product Form"} />
+      <Link to="/admin/product-list" className="btn btn-light my-3">
         Go Back
       </Link>
       {(isUpdateProductLoading ||
@@ -111,90 +113,90 @@ const ProductFormPage = () => {
       {isLoading ? (
         <Loader />
       ) : error ? (
-        <Message variant='danger'>
+        <Message variant="danger">
           {error?.data?.message || error.error}
         </Message>
       ) : (
         <FormContainer>
-          <Meta title={'Product Form'} />
-          <h1>{isUpdateMode ? 'Update Product' : 'Create Product'}</h1>
+          <Meta title={"Product Form"} />
+          <h1>{isUpdateMode ? "Update Product" : "Create Product"}</h1>
           <Form onSubmit={submitHandler}>
-            <Form.Group controlId='name'>
+            <Form.Group controlId="name">
               <Form.Label>Name</Form.Label>
               <Form.Control
-                type='name'
-                placeholder='Enter name'
+                type="name"
+                placeholder="Enter name"
                 value={name}
-                onChange={e => setName(e.target.value)}
+                onChange={(e) => setName(e.target.value)}
               ></Form.Control>
             </Form.Group>
 
-            <Form.Group controlId='price'>
+            <Form.Group controlId="price">
               <Form.Label>Price</Form.Label>
               <Form.Control
-                type='number'
-                placeholder='Enter price'
+                type="number"
+                placeholder="Enter price"
                 value={price}
-                onChange={e => setPrice(e.target.value)}
+                onChange={(e) => setPrice(e.target.value)}
               ></Form.Control>
             </Form.Group>
 
-            <Form.Group controlId='image'>
+            <Form.Group controlId="image">
               <Form.Label>Image</Form.Label>
               <Form.Control
-                type='file'
+                type="file"
                 onChange={uploadFileHandler}
               ></Form.Control>
             </Form.Group>
 
-            <Form.Group controlId='brand'>
+            <Form.Group controlId="brand">
               <Form.Label>Brand</Form.Label>
               <Form.Control
-                type='text'
-                placeholder='Enter brand'
+                type="text"
+                placeholder="Enter brand"
                 value={brand}
-                onChange={e => setBrand(e.target.value)}
+                onChange={(e) => setBrand(e.target.value)}
               ></Form.Control>
             </Form.Group>
 
-            <Form.Group controlId='countInStock'>
+            <Form.Group controlId="countInStock">
               <Form.Label>Count In Stock</Form.Label>
               <Form.Control
-                type='number'
-                placeholder='Enter countInStock'
+                type="number"
+                placeholder="Enter countInStock"
                 value={countInStock}
-                onChange={e => setCountInStock(e.target.value)}
+                onChange={(e) => setCountInStock(e.target.value)}
               ></Form.Control>
             </Form.Group>
 
-            <Form.Group controlId='category'>
+            <Form.Group controlId="category">
               <Form.Label>Category</Form.Label>
               <Form.Control
-                type='text'
-                placeholder='Enter category'
+                type="text"
+                placeholder="Enter category"
                 value={category}
-                onChange={e => setCategory(e.target.value)}
+                onChange={(e) => setCategory(e.target.value)}
               ></Form.Control>
             </Form.Group>
 
-            <Form.Group controlId='description'>
+            <Form.Group controlId="description">
               <Form.Label>Description</Form.Label>
               <Form.Control
-                as='textarea'
+                as="textarea"
                 rows={3}
-                type='text'
-                placeholder='Enter description'
+                type="text"
+                placeholder="Enter description"
                 value={description}
-                onChange={e => setDescription(e.target.value)}
+                onChange={(e) => setDescription(e.target.value)}
               ></Form.Control>
             </Form.Group>
 
             <Button
-              type='submit'
-              variant='primary'
-              style={{ marginTop: '1rem' }}
+              type="submit"
+              variant="primary"
+              style={{ marginTop: "1rem" }}
             >
-              {isUpdateMode ? 'Update Product' : 'Create Product'}
+              {isUpdateMode ? "Update Product" : "Create Product"}
             </Button>
           </Form>
         </FormContainer>

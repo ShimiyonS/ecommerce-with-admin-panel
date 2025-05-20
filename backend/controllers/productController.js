@@ -83,7 +83,6 @@ const createProduct = async (req, res, next) => {
   try {
     const { name, image, description, brand, category, price, countInStock } =
       req.body;
-    console.log("image", image);
     const product = new Product({
       user: req.user._id,
       name,
